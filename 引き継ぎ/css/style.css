@@ -1,0 +1,319 @@
+@charset "UTF-8" ;
+
+/*全体で共通の部分です*/
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+a {
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
+html {
+    font-size: 100%;
+}
+
+body {
+    color: #000;
+    line-height: 1.8;
+    background-color: #bfc5d4;
+    font-family: "Noto Sans JP", sans-serif;
+}
+
+
+.wrapper {
+    max-width: 1500px;
+    margin: auto;
+    padding: 0 5rem;
+}
+
+.main-title{
+    text-align: center;
+}
+/*フォント*/
+
+.noto-sans-jp { /*weightは100-900で指定。mediumで500くらい。*/
+  font-family: "Noto Sans JP", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;/*italic使用可*/
+}
+.biz-ud {
+  font-family: "BIZ UDGothic", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+/*ナビバー*/
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+
+    height: 120px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo {
+    height: 60px;
+    width: auto;
+}
+.nav-links {
+    display: flex;
+    gap: 1rem;
+}
+.nav-links a {
+    color: #000;
+}
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.nav-right {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+}
+.cta-link img {
+    max-width: 230px;
+    height: auto;
+    display: block;
+}
+
+/*ヘッダー*/
+.hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    background: center / contain no-repeat url("../images/top.webp");
+}
+.hero-title {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    color: #fff;
+}
+.main {
+    font-size: 1.8rem;
+    font-weight: 400;
+}
+.sub {
+    font-size: 1rem;
+    font-weight: 300;
+}
+.lead {
+    text-align: center;
+    margin: 4rem;
+}
+
+/*お悩み*/
+.problem {
+    background-color: #a5c0dd;
+}
+.problem h2 {
+    color: #fff;
+    text-align: center;
+    padding: 2rem;
+}
+.problem img {
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+    max-width: 700px;
+    width: 100%;
+    height: auto;
+}
+.icon {
+    display: flex;
+    gap: 2rem;
+}
+.solution p {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+}
+.solution img {
+    display: block;
+    margin: 0 auto;
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+}
+
+/*AIワークフローとは？*/
+.what {
+    background-color: #fff;
+}
+.what h2,.what p {
+    text-align: center;
+}
+.what img {
+    display: block;
+    margin: 0 auto;
+    max-width: 700px;
+    width: 100%;
+    height: auto;
+}
+
+/*提供価値*/
+.value {
+    background-color: #0b245b;
+}
+.value h2 {
+    color: #fff;
+    text-align: center;
+}
+.values-grid {
+    display: grid;
+    gap: 24px;
+    justify-content: center;
+}
+.value-item {
+    padding: 24px;
+    background: #fff;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+/*入会申し込みコーナーその1*/
+.cta1 {
+    background-color: #fff;
+}
+.cta {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+/*人気のコンテンツ*/
+.contents h2, .contents-p {
+    text-align: center;
+}
+.contents-grid {
+    display: grid;
+    justify-content: center;
+    gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 5rem;
+}
+.contents-card {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+}
+.contents-card img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 4px;
+}
+
+/*トモの強み*/
+.features h2, .features p {
+    text-align: center;
+}
+
+/*お客様の声*/
+.grid {
+    display: grid;
+    justify-content: center;
+    gap: 2rem 2rem;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+    margin-bottom: 5rem;
+}
+.voice-item {
+    aspect-ratio: 1/1.5;
+    background-color: #fff;
+    border-radius: 18px;
+}
+
+.voice-item p {
+    margin: 0.5rem;
+}
+
+/*無料版もあります*/
+.plan img {
+    display: block;
+    margin: 0 auto;
+}
+
+/*入会申し込みコーナー最終*/
+.cta-bottom {
+    background-color: #0b245b;
+}
+.cta-bottom p {
+    color: #fff;
+    text-align: center;
+}
+
+/*プロフィール*/
+.profile-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.profile-card {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+.profile-icon {
+    width: 200px;
+    background-color: #fff;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.ceo {
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+/*フッター*/
+footer {
+    background-color: #fff;
+    text-align: center;
+}
+footer img {
+    display: block;
+    margin: 0 auto;
+    max-width: 200px;
+    width: 100%;
+    height: auto;
+}
+
+/*モーダルウィンドウの設定（コメントの詳細を表示する設定）*/
+/*モーダル背景*/
+.modal {
+  display: none; /* 初期状態は非表示に */
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+/*モーダルの中身*/
+.modal-content {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 20vh auto;
+}
