@@ -9,7 +9,8 @@ import PricingSection from "@/components/PricingSection";
 import ContentSection from "@/components/ContentSection";
 import StrengthSection from "@/components/StrengthSection";
 import LecturerSection from "@/components/LecturerSection";
-import RecommendationsSection from "@/components/RecommendationsSection";
+
+import CommunityVoicesSection from "@/components/CommunityVoicesSection";
 import VoicesSection from "@/components/VoicesSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
@@ -19,7 +20,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <HeroSection />
         <WorrySection />
         <SolutionSection />
@@ -30,6 +31,8 @@ export default function Home() {
         <StrengthSection />
         <SectionDivider />
         <VoicesSection />
+        <SectionDivider />
+        <CommunityVoicesSection />
         <SectionDivider />
         <PricingSection />
         <SectionDivider />
