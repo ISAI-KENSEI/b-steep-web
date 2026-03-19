@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Noto_Sans_JP, M_PLUS_1p } from "next/font/google";
 import "./globals.css";
 
@@ -13,6 +13,11 @@ const mPlus1p = M_PLUS_1p({
   subsets: ["latin"],
   weight: ["400", "500", "700", "800", "900"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: "トモラボ！｜今日から始めるAIワークフロー教室",
@@ -30,6 +35,9 @@ export default function RootLayout({
       <body
         className={`${notoSansJP.variable} ${mPlus1p.variable} antialiased`}
       >
+        <a href="#main-content" className="skip-to-content">
+          メインコンテンツへスキップ
+        </a>
         {children}
       </body>
     </html>

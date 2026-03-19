@@ -9,13 +9,13 @@ export default function VoicesSection() {
   const sectionRef = useRevealAnimation();
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-32 overflow-hidden relative" style={{ backgroundColor: '#bfc5d4' }}>
+    <section ref={sectionRef} aria-label="成功事例とイベント" className="py-16 sm:py-24 md:py-32 overflow-hidden relative" style={{ backgroundColor: '#bfc5d4' }}>
       <Image
         src="/images/legacy/sozai/moku.png"
         alt=""
         width={110}
         height={110}
-        className="absolute top-20 left-8 md:top-28 md:left-16 w-24 h-auto md:w-32 opacity-55 z-0"
+        className="absolute top-20 left-8 md:top-28 md:left-16 w-24 h-auto md:w-32 opacity-55 z-0 hidden sm:block"
       />
       <Image
         src="/images/legacy/sozai/star_1.png"

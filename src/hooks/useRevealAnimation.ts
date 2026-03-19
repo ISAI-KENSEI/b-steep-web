@@ -6,6 +6,18 @@ export function useRevealAnimation(threshold = 0.1) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReducedMotion) {
+      const elements = sectionRef.current?.querySelectorAll(".reveal");
+      elements?.forEach((el) => {
+        (el as HTMLElement).style.opacity = "1";
+      });
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
