@@ -34,21 +34,21 @@ export default function ReasonsSection() {
   const sectionRef = useRevealAnimation();
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-32 relative overflow-hidden" style={{ backgroundColor: '#bfc5d4' }}>
+    <section ref={sectionRef} aria-label="トモラボが選ばれる理由" className="py-16 sm:py-24 md:py-32 relative overflow-hidden" style={{ backgroundColor: '#bfc5d4' }}>
       {/* 装飾：chi・シャトル・星 */}
       <Image
         src="/images/legacy/sozai/chi.png"
         alt=""
         width={582}
         height={582}
-        className="absolute top-12 right-8 md:top-16 md:right-16 w-20 aspect-square md:w-28 opacity-60 z-0"
+        className="absolute top-12 right-8 md:top-16 md:right-16 w-20 aspect-square md:w-28 opacity-60 z-0 hidden sm:block"
       />
       <Image
         src="/images/legacy/sozai/shuttle.png"
         alt=""
         width={120}
         height={120}
-        className="absolute top-12 left-8 md:top-20 md:left-16 w-24 h-auto md:w-32 opacity-60 z-0"
+        className="absolute top-12 left-8 md:top-20 md:left-16 w-24 h-auto md:w-32 opacity-60 z-0 hidden sm:block"
       />
       <Image
         src="/images/legacy/sozai/star_0.png"
@@ -72,8 +72,8 @@ export default function ReasonsSection() {
         className="absolute bottom-[40%] left-[15%] w-20 h-auto md:w-24 opacity-45 z-0"
       />
       
-      <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
-        <h2 className="reveal opacity-0 font-mplus text-3xl md:text-5xl font-black tracking-wide mb-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
+        <h2 className="reveal opacity-0 font-mplus text-xl sm:text-3xl md:text-5xl font-black tracking-wide mb-12 sm:mb-20">
           トモラボが選ばれる4つの理由
         </h2>
 
@@ -92,13 +92,13 @@ export default function ReasonsSection() {
 
                 {/* 右：テキスト */}
                 <div className="w-full md:w-[55%]">
-                  <span className="font-mplus text-6xl md:text-8xl text-gray-200 font-black block mb-2 leading-none">
+                  <span className="font-mplus text-4xl sm:text-6xl md:text-8xl text-gray-200 font-black block mb-2 leading-none">
                     {reason.number}.
                   </span>
-                  <h3 className="text-xl md:text-2xl lg:text-3xl font-medium text-gray-400 mb-6 tracking-wide leading-relaxed">
+                  <h3 className="text-base sm:text-xl md:text-2xl lg:text-3xl font-medium text-gray-500 mb-4 sm:mb-6 tracking-wide leading-relaxed">
                     {reason.title}
                   </h3>
-                  <p className="text-base md:text-lg leading-8 md:leading-9 text-gray-700">
+                  <p className="text-sm sm:text-base md:text-lg leading-7 sm:leading-8 md:leading-9 text-gray-700">
                     {reason.description}
                   </p>
                 </div>
@@ -114,7 +114,7 @@ export default function ReasonsSection() {
 function ReasonIllustration({ index }: { index: number }) {
   const illustrations = [
     // 1. ワークフロー
-    <svg key="workflow" viewBox="0 0 300 300" className="w-64 h-64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg key="workflow" viewBox="0 0 300 300" className="w-48 sm:w-56 md:w-64 h-auto" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <rect x="20" y="60" width="80" height="50" rx="8" stroke="#111" strokeWidth="2.5" fill="none" />
       <text x="38" y="90" fontSize="14" fill="#111" fontFamily="monospace">n8n</text>
       <rect x="140" y="20" width="80" height="50" rx="8" stroke="#111" strokeWidth="2.5" fill="none" />
@@ -129,7 +129,7 @@ function ReasonIllustration({ index }: { index: number }) {
       <path d="M180 150 L150 200" stroke="#111" strokeWidth="2" strokeDasharray="6 4" />
     </svg>,
     // 2. 無料スタート
-    <svg key="free" viewBox="0 0 300 300" className="w-64 h-64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg key="free" viewBox="0 0 300 300" className="w-48 sm:w-56 md:w-64 h-auto" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <circle cx="150" cy="100" r="50" stroke="#111" strokeWidth="2.5" fill="none" />
       <text x="120" y="108" fontSize="28" fill="#111" fontFamily="monospace">¥0</text>
       <path d="M100 160 L80 240" stroke="#111" strokeWidth="2.5" fill="none" />
@@ -141,7 +141,7 @@ function ReasonIllustration({ index }: { index: number }) {
       <path d="M170 55 L175 40 L180 55" stroke="#111" strokeWidth="2" />
     </svg>,
     // 3. 成功事例
-    <svg key="success" viewBox="0 0 300 300" className="w-64 h-64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg key="success" viewBox="0 0 300 300" className="w-48 sm:w-56 md:w-64 h-auto" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <rect x="30" y="40" width="240" height="140" rx="12" stroke="#111" strokeWidth="2.5" fill="none" />
       <polygon points="120,70 120,150 190,110" fill="none" stroke="#111" strokeWidth="2.5" />
       <text x="60" y="210" fontSize="14" fill="#111" fontFamily="monospace">130万回再生</text>
@@ -151,7 +151,7 @@ function ReasonIllustration({ index }: { index: number }) {
       <rect x="140" y="270" width="100" height="20" rx="10" stroke="#111" strokeWidth="1.5" fill="none" />
     </svg>,
     // 4. オフ会
-    <svg key="offkai" viewBox="0 0 300 300" className="w-64 h-64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg key="offkai" viewBox="0 0 300 300" className="w-48 sm:w-56 md:w-64 h-auto" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <circle cx="80" cy="100" r="25" stroke="#111" strokeWidth="2.5" fill="none" />
       <circle cx="150" cy="90" r="28" stroke="#111" strokeWidth="2.5" fill="none" />
       <circle cx="220" cy="100" r="25" stroke="#111" strokeWidth="2.5" fill="none" />

@@ -85,21 +85,21 @@ export default function ContentSection() {
   const sectionRef = useRevealAnimation();
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-32 relative overflow-hidden" style={{ backgroundColor: '#bfc5d4' }}>
+    <section ref={sectionRef} aria-label="トモラボのコンテンツ" className="py-16 sm:py-24 md:py-32 relative overflow-hidden" style={{ backgroundColor: '#bfc5d4' }}>
       {/* 装飾：do・雲・星 */}
       <Image
         src="/images/legacy/sozai/do.png"
         alt=""
         width={1263}
         height={580}
-        className="absolute top-12 right-0 w-40 h-auto md:w-64 opacity-50 z-0"
+        className="absolute top-12 right-0 w-40 h-auto md:w-64 opacity-50 z-0 hidden sm:block"
       />
       <Image
         src="/images/legacy/sozai/mokumoku.png"
         alt=""
         width={110}
         height={110}
-        className="absolute bottom-16 left-8 md:bottom-24 md:left-16 w-24 h-auto md:w-32 opacity-55 z-0"
+        className="absolute bottom-16 left-8 md:bottom-24 md:left-16 w-24 h-auto md:w-32 opacity-55 z-0 hidden sm:block"
       />
       <Image
         src="/images/legacy/sozai/star_0.png"
@@ -116,17 +116,17 @@ export default function ContentSection() {
         className="absolute bottom-[30%] right-[15%] w-8 aspect-square md:w-10 opacity-65 z-0"
       />
       
-      <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="reveal opacity-0 font-mplus text-3xl md:text-5xl font-black tracking-wide mb-6">
+          <h2 className="reveal opacity-0 font-mplus text-xl sm:text-3xl md:text-5xl font-black tracking-wide mb-4 sm:mb-6">
             トモラボで学べること
           </h2>
-          <p className="reveal opacity-0 text-base md:text-lg text-gray-700">
+          <p className="reveal opacity-0 text-sm sm:text-base md:text-lg text-gray-700">
             n8nをメインに、Skool上で体系的なカリキュラムを提供しています。
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {contents.map((item, index) => (
             <div
               key={index}

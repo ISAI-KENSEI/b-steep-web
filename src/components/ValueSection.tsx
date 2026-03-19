@@ -3,71 +3,120 @@
 import Image from "next/image";
 import { useRevealAnimation } from "@/hooks/useRevealAnimation";
 
+const values = [
+  {
+    number: "1",
+    title: "作りたいAIワークフローを必ず形に",
+    description:
+      "エラー時はトモ＆メンバーが即サポート。AI構築のロードマップで「何から始めよう？」を解決します。豊富なワークフロー事例から業務改善のアイデアが得られます。",
+    // 写真を入れる場合はコメントアウトを外してパスを指定
+    // image: "/images/value-support.png",
+    imageAlt: "AIワークフロー構築のサポート",
+  },
+  {
+    number: "2",
+    title: "業界随一のAIシステム構築特化コンテンツ",
+    description:
+      "ここでしか見られない10時間超の動画教材を完備。コピペで動くJSONコードを多数共有し、毎週のAIニュース＋毎月新コンテンツを継続配信。AIツール専門家へのインタビュー動画も充実しています。",
+    // image: "/images/value-content.png",
+    imageAlt: "豊富な学習コンテンツ",
+  },
+  {
+    number: "3",
+    title: "各業界の仲間と繋がれるコミュニティ",
+    description:
+      "作ったAIを投稿すると仲間から改善フィードバックがもらえます。案件相談やコラボが生まれ、副業・キャリアのチャンスにも。メンバー同士での仕事やコラボが生まれた実績もあり、各業界で活躍するAI感度の高いメンバーが多数参加しています。",
+    // image: "/images/value-community.png",
+    imageAlt: "コミュニティのつながり",
+  },
+  {
+    number: "4",
+    title: "ライブイベントで楽しく学べる",
+    description:
+      "四半期ごとにオフ会(東京・大阪)を多数開催。オンラインで「トモのAI勉強会」を定期開催し、最新AI知識＆実践スキルをコミュニティと一緒に習得できます。",
+    // image: "/images/value-events.png",
+    imageAlt: "楽しいライブイベント",
+  },
+];
+
 export default function ValueSection() {
   const sectionRef = useRevealAnimation();
 
-  const values = [
-    {
-      title: "作りたいAIワークフローを必ず形に",
-      items: [
-        "エラー時はトモ＆メンバーが即サポート",
-        "AI構築のロードマップで「何から始めよう？」を解決",
-        "豊富なワークフロー事例から業務改善のアイデアが得られる"
-      ]
-    },
-    {
-      title: "業界随一のAIシステム構築特化コンテンツ",
-      items: [
-        "ここでしか見られない10時間超の動画教材",
-        "コピペで動くJSONコードを多数共有",
-        "毎週のAIニュース＋毎月新コンテンツを継続配信",
-        "AIツール専門家へのインタビュー動画"
-      ]
-    },
-    {
-      title: "各業界の仲間と繋がれるコミュニティ",
-      items: [
-        "作ったAIを投稿すると仲間から改善フィードバック",
-        "案件相談やコラボが生まれ、副業・キャリアのチャンスにも",
-        "メンバー同士での仕事やコラボが生まれた実績あり",
-        "各業界で活躍する、AI感度の高いメンバーが多数参加"
-      ]
-    },
-    {
-      title: "ライブイベントで楽しく学べる",
-      items: [
-        "四半期ごとにオフ会(東京・大阪)を多数開催",
-        "オンラインで「トモのAI勉強会」を定期開催",
-        "最新AI知識＆実践スキルをコミュニティと一緒に習得"
-      ]
-    }
-  ];
-
   return (
-    <section ref={sectionRef} className="py-24 md:py-32 relative overflow-hidden" style={{ backgroundColor: '#0b245b' }}>
-      <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
-        <h2 className="reveal opacity-0 text-center font-mplus text-3xl md:text-5xl font-black text-white mb-16">
-          「トモラボ＋」が誇る4つの提供価値
+    <section
+      ref={sectionRef}
+      aria-label="トモラボの4つのポイント"
+      className="py-24 sm:py-32 md:py-44 relative overflow-hidden"
+      style={{ backgroundColor: "#0b245b" }}
+    >
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 relative z-10">
+        {/* ──────────────────────────────────
+            セクションタイトル（左寄せ・AI木曜会スタイル）
+        ────────────────────────────────── */}
+        <h2 className="reveal opacity-0 font-mplus text-2xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black text-white leading-tight mb-24 sm:mb-32 md:mb-44">
+          「トモラボ＋」が誇る<br />
+          4つの提供価値
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {values.map((value, index) => (
-            <div
-              key={index}
-              className="reveal opacity-0 bg-white rounded-xl p-6 md:p-8"
-            >
-              <h3 className="text-xl md:text-2xl font-bold mb-4 leading-tight">
-                {value.title}
-              </h3>
-              <ul className="space-y-2">
-                {value.items.map((item, itemIndex) => (
-                  <li key={itemIndex} className="text-base leading-relaxed">
-                    ・{item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        {/* ──────────────────────────────────
+            交互配置カード群
+        ────────────────────────────────── */}
+        <div className="space-y-28 sm:space-y-36 md:space-y-48">
+          {values.map((value, index) => {
+            const isReversed = index % 2 !== 0;
+
+            return (
+              <div
+                key={index}
+                className={`reveal opacity-0 flex flex-col ${
+                  isReversed ? "md:flex-row-reverse" : "md:flex-row"
+                } gap-8 sm:gap-12 md:gap-20 items-center`}
+              >
+                {/* ───── 画像エリア（50%） ───── */}
+                <div className="w-full md:w-1/2">
+                  {"image" in value && value.image ? (
+                    <div className="relative w-full aspect-square rounded-lg overflow-hidden">
+                      <Image
+                        src={value.image as string}
+                        alt={value.imageAlt}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+                  ) : (
+                    /* 写真未設定時のプレースホルダー枠 */
+                    <div
+                      className="w-full aspect-square rounded-lg"
+                      style={{
+                        background:
+                          "linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)",
+                        border: "1px solid rgba(255,255,255,0.06)",
+                      }}
+                    />
+                  )}
+                </div>
+
+                {/* ───── テキストエリア（50%） ───── */}
+                <div className="w-full md:w-1/2">
+                  {/* 番号 — 大きく薄く */}
+                  <p className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none mb-6 md:mb-8 text-white/20">
+                    {value.number}.
+                  </p>
+
+                  {/* タイトル — やや淡い白 */}
+                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-snug mb-6 md:mb-8 text-white/60">
+                    {value.title}
+                  </h3>
+
+                  {/* 説明文 — はっきりした白 */}
+                  <p className="text-sm sm:text-base md:text-lg leading-loose text-white/90">
+                    {value.description}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

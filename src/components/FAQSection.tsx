@@ -46,7 +46,7 @@ export default function FAQSection() {
   const sectionRef = useRevealAnimation();
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-32 relative overflow-hidden" style={{ backgroundColor: '#bfc5d4' }}>
+    <section ref={sectionRef} aria-label="よくある質問" className="py-16 sm:py-24 md:py-32 relative overflow-hidden" style={{ backgroundColor: '#bfc5d4' }}>
       {/* 装飾：星と雲 */}
       <Image
         src="/images/legacy/sozai/star_0.png"
@@ -79,17 +79,17 @@ export default function FAQSection() {
       
       <div className="max-w-4xl mx-auto px-6 md:px-12 relative z-10">
         <div className="text-center mb-16">
-          <p className="reveal opacity-0 text-gray-400 text-sm tracking-[0.3em] mb-4">
+          <p className="reveal opacity-0 text-gray-500 text-sm tracking-[0.3em] mb-4">
             FAQ
           </p>
-          <h2 className="reveal opacity-0 font-mplus text-3xl md:text-5xl font-black tracking-wide">
+          <h2 className="reveal opacity-0 font-mplus text-xl sm:text-3xl md:text-5xl font-black tracking-wide">
             よくある質問
           </h2>
         </div>
 
         <div className="reveal opacity-0 divide-y divide-gray-200 border-t border-b border-gray-200">
           {faqs.map((faq, index) => (
-            <FAQItem key={index} question={faq.question} answer={faq.answer} />
+            <FAQItem key={index} index={index} question={faq.question} answer={faq.answer} />
           ))}
         </div>
       </div>
@@ -97,21 +97,25 @@ export default function FAQSection() {
   );
 }
 
-function FAQItem({ question, answer }: { question: string; answer: string }) {
+function FAQItem({ question, answer, index }: { question: string; answer: string; index: number }) {
   const [isOpen, setIsOpen] = useState(false);
+  const answerId = `faq-answer-${index}`;
 
   return (
     <div>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between py-6 text-left group"
+        aria-expanded={isOpen}
+        aria-controls={answerId}
+        className="w-full flex items-center justify-between py-4 sm:py-6 text-left group cursor-pointer"
       >
-        <div className="flex items-center gap-4">
-          <span className="font-mplus text-2xl text-gray-400 font-bold shrink-0">Q.</span>
-          <span className="text-base md:text-lg font-bold">{question}</span>
+        <div className="flex items-center gap-3 sm:gap-4">
+          <span className="font-mplus text-xl sm:text-2xl text-gray-500 font-bold shrink-0">Q.</span>
+          <span className="text-sm sm:text-base md:text-lg font-bold">{question}</span>
         </div>
         <span
-          className={`w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-lg text-gray-400 shrink-0 ml-4 transition-transform duration-300 ${
+          aria-hidden="true"
+          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-gray-300 flex items-center justify-center text-lg text-gray-500 shrink-0 ml-3 sm:ml-4 transition-transform duration-300 ${
             isOpen ? "rotate-45" : ""
           }`}
         >
@@ -119,11 +123,14 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
         </span>
       </button>
       <div
+        id={answerId}
+        role="region"
+        aria-labelledby={`faq-question-${index}`}
         className={`overflow-hidden transition-all duration-300 ${
-          isOpen ? "max-h-48 pb-6" : "max-h-0"
+          isOpen ? "max-h-96 pb-6" : "max-h-0"
         }`}
       >
-        <div className="pl-12">
+        <div className="pl-8 sm:pl-12">
           <p className="text-sm md:text-base leading-7 text-gray-600">
             {answer}
           </p>

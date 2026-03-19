@@ -4,7 +4,7 @@
 :root {
   --background: #ffffff;
   --foreground: #111111;
-  --legacy-bg-main: #bfc5d4;
+  --legacy-bg-main: #e0eaf4;
   --legacy-bg-problem: #a5c0dd;
   --legacy-bg-value: #0b245b;
 }
@@ -18,7 +18,7 @@
 }
 
 body {
-  background: #bfc5d4;
+  background: #e0eaf4;
   color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
   overflow-x: hidden;
@@ -60,6 +60,48 @@ html {
 
 .animate-fade-in-up {
   animation: fadeInUp 0.8s ease-out both;
+}
+
+/* アクセシビリティ: モーション低減設定 */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-fade-in-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* アクセシビリティ: キーボードフォーカスインジケータ */
+*:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip-to-content リンク */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 12px 24px;
+  background: #111827;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+  top: 0;
 }
 
 ::-webkit-scrollbar {

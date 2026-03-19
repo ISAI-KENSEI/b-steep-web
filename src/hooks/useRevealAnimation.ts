@@ -6,6 +6,7 @@ export function useRevealAnimation(threshold = 0.1) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // アクセシビリティ: モーション低減設定の場合はアニメーションをスキップ
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;

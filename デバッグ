@@ -1,0 +1,545 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -1264,
+        368
+      ],
+      "id": "1c0baa04-6a79-46d9-acc1-8f5a47afb1e8",
+      "name": "When chat message received",
+      "webhookId": "139dbbc2-3caa-4003-a2f3-25b1e0958d4c"
+    },
+    {
+      "parameters": {
+        "url": "https://google-search74.p.rapidapi.com/",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $json.chatInput }}"
+            },
+            {
+              "name": "limit",
+              "value": "3"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Host",
+              "value": "google-search74.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -1056,
+        368
+      ],
+      "id": "9c23ccfa-d6fd-45b7-a808-4c7879764bb2",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "yQidjPhqCuZzwXLi",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the 'results' array from the HTTP Request Node output\n\nconst results = $json.results;\n\n\n\n// Extract the URLs from each result\n\nconst extractedUrls = results.map(result => ({\n\n    url: result.url,\n\n    title: result.title,\n\n    // Optional: Include title if needed for context\n\n    description: result.description,\n\n    // Optional: Include description if needed\n\n}));\n\n\n\n// Return structured output\n\nreturn extractedUrls;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -848,
+        368
+      ],
+      "id": "c35885b7-b0b9-48bf-bc90-85ae3951144b",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -640,
+        368
+      ],
+      "id": "e95cedf4-bb95-4b59-bcb6-707349906d3e",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -432,
+        464
+      ],
+      "id": "cbb8a68c-25eb-4746-8c75-5ba423d06f2d",
+      "name": "HTTP Request1",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -432,
+        96
+      ],
+      "id": "62c4192c-06ec-41cd-88b2-01acbca38c5d",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 【修正版】エラーで止めずに、空の結果を返すコード\n\n// json.dataがあるか確認し、なければ空文字を入れる\nconst html = $json.data || \"\";\n\n// もしHTMLが空っぽなら、エラー（throw Error）にするのではなく、\n// 「中身なし」として処理を終わらせる\nif (!html) {\n    return {\n        bodyText: [] // 空の配列を返して、次のノードに「何もなかったよ」と伝える\n    };\n}\n\n// --- 以下は元のロジックと同じ ---\n\n// Function to extract and clean content from specified tags\nfunction extractAndCleanContent(html, tag) {\n    const regex = new RegExp(`<${tag}[^>]*>(.*?)<\\\\/${tag}>`, \"gis\");\n    const matches = [...html.matchAll(regex)];\n    \n    // Remove nested HTML tags and return plain text\n    return matches.map(match => match[1].replace(/<[^>]*>/g, \"\").trim());\n}\n\n// Extract and clean body text (from <p> and <span> tags)\nconst bodyText = [\n    ...extractAndCleanContent(html, \"p\"),\n    ...extractAndCleanContent(html, \"span\")\n];\n\n// Return the clean text as an array\nreturn {\n    bodyText\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        192
+      ],
+      "id": "f78df048-0c74-44b8-92ed-784598051170",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ensure we process multiple items from the input\n\nconst results = items.map(item => item.json.bodyText); // Collect 'bodyText' from each iteration\n\n\n\n// Define a separator to distinguish pages\n\nconst separator = \"\\n\\n--- Page Break ---\\n\\n\";\n\n\n\n// Combine all body text into a single string\n\nconst combinedBodyText = results.join(separator);\n\n\n\n// Return the concatenated result\n\nreturn {\n\n    combinedBodyText\n\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        0
+      ],
+      "id": "0e6871e1-b3ed-44a1-89af-b72ee0b30e78",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=役割：精密なデータ抽出・要約専門家\n\n指示：3つのウェブページからスクレイピングされた本文テキストを分析し、その中に含まれる重要な情報を構造化した詳細な要約を作成してください。高品質なブログ記事の作成に役立つ、独自性があり関連性の高い実用的なインサイトの特定に焦点を当ててください。\n\n手順\n\n1. 入力分析：提供された3つのウェブページの統合本文テキストを検証する：{{ $json.combinedBodyText }}\n\n2. トピック識別：統合テキストで議論されている包括的なテーマやトピックを特定する\n\n3. コンテンツ抽出：以下のような重要な詳細を抽出する：\n\n・主要なポイントや論点\n\n・裏付けとなる事実、統計、証拠\n\n・独自のインサイトや視点\n\n\n\n\n\n4. 整理された要約：ブログライターが使いやすい形式で情報を構造化する。\n\n以下のセクションを使用：\n\n・ はじめに/概要\n\n・主要なインサイト/発見事項（リスト形式）\n\n・裏付けとなる証拠/事例\n\n・含意や潜在的な応用\n\n\n\n\n\n5. 明確性と関連性\n\n・要約は簡潔で、不必要な繰り返しを避け、ブログ記事作成に直接関連するものにする\n\n・最終目標：入力テキストからすべての重要な情報を含む、一貫性があり詳細な要約を生成すること。この要約は、その後のブログ記事作成ステップの基盤となるコンテンツとして機能します。\n\n・重点事項：読者に深みと価値を提供するコンテンツの抽出を重視してください。例：独自のデータポイント、専門家の意見、実用的な応用例など。一般的な情報の重複は避け、代わりに統合されたウェブページに固有の具体的な内容を強調してください。\n\n・出力例の構造\n\n\n\n概要：[3つのウェブページで扱われている全体的なトピックの簡潔な説明]\n\n主要なインサイト/発見事項\n\n[インサイト1]\n\n[インサイト2]\n\n[インサイト3]\n\n裏付けとなる証拠/事例\n\n\n\n[ページ1からの事実や事例]\n\n[ページ2からの事実や事例]\n\n[ページ3からの事実や事例]\n\n\n\n含意や応用\n\n[情報がどのように応用できるか、またはその広範囲な含意の分析]\n\n注意: 出力は必ず日本語で作成してください。 "
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        -16,
+        0
+      ],
+      "id": "a974f115-b60e-4244-b17a-c83ef3b6e911",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "BbgoHwRWnZQr47er",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=# 役割\nあなたは、与えられた「一次情報（ソースデータ）」を基に、読者にとって有益な記事を執筆するプロフェッショナルなSEOライター兼編集者です。\nあなたの使命は、提供された情報の価値を最大化し、読みやすく構造化された記事に変換することです。\n\n# 入力データ（ソース）\n以下のテキストデータに含まれる事実・主張・数値を記事の核として使用してください：\n{{ $json.output[0].content[0].text }}\n※上記変数は必ずn8nのUIで適切な入力値を紐付けてください。\n\n# 汎用執筆ルール（厳守）\n1. **ソース至上主義（重要）**:\n   - 記事のテーマ、主張、結論は、必ず「入力データ」に基づいている必要があります。\n   - 入力データが「専門的な技術ニュース」なら「専門的な解説記事」を、入力データが「初心者向けガイド」なら「入門記事」を書いてください。\n   - **入力データに含まれない一般的な背景知識（「〜とは」や歴史など）で記事を埋め尽くし、肝心のニュース内容が薄まることを固く禁じます。**\n\n2. **情報の解像度**:\n   - 入力データ内にある固有名詞（企業名、ツール名、技術名、人物名）や具体的な数値は、省略せずに必ず記事に盛り込んでください。これらが記事の信頼性を担保します。\n\n3. **トーン＆マナー**:\n   - 読者に語りかけるような、プロフェッショナルかつ熱量のある文体（〜ですね、〜しましょう）。\n   - 導入文は「一般論」ではなく、「今回のニュース/トピックがなぜ読者にとって重要か」から書き始めてください。\n\n# デザイン・構成テンプレート\n以下のフォーマット構造に従って出力してください。見出しの内容は入力データに合わせて可変させてください。\n\n---\n【タイトル】\n（入力データの核心を突き、検索意図を捉えた32文字前後のタイトル）\n\n【導入文】\n（記事の要約と、読者がこの記事を読むメリットを簡潔に）\n\n━━━━━━━━━━━━━━━\n（H2見出し：入力データのメイントピック ※例：新機能の全貌、今回の変更点など）\n━━━━━━━━━━━━━━━\n（本文解説。入力データに基づいて詳細に記述）\n✅ ポイント：\n- （データ内の重要な事実1）\n- （データ内の重要な事実2）\n- （データ内の重要な事実3）\n\n━━━━━━━━━━━━━━━\n（H2見出し：具体的な詳細・仕組み・メリットなど）\n━━━━━━━━━━━━━━━\n（本文解説）\n\n| （比較や詳細項目A） | （比較や詳細項目B） |\n|---|---|\n| （データに基づく内容） | （データに基づく内容） |\n\n━━━━━━━━━━━━━━━\n（H2見出し：実用的なユースケース・応用・影響）\n━━━━━━━━━━━━━━━\n（この情報が実際にどう役立つか、または業界にどう影響するかを解説）\n\n━━━━━━━━━━━━━━━\nまとめ\n━━━━━━━━━━━━━━━\n（記事全体の結論）\n\n━━━━━━━━━━━━━━━\nよくある質問（FAQ）\n━━━━━━━━━━━━━━━\n（入力データの内容に関連して、読者が抱きそうな疑問を3つQ&A化）\nQ1：\nA：\n\nQ2：\nA：\n\nQ3：\nA：\n\n—\n【締めの一文】\n（読者の行動を促すポジティブなメッセージ）\n---"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        -16,
+        240
+      ],
+      "id": "91a25b41-7134-49f9-95c0-07b6d09c69c4",
+      "name": "Message a model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "BbgoHwRWnZQr47er",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "createFromText",
+        "content": "={{ $json.output[0].content[0].text }}",
+        "name": "=ブログポスト用_ {{ $now }}",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "147N1ujcceSTex_xE3c__RoX0SCryCbfY",
+          "mode": "list",
+          "cachedResultName": "ブログ/SEO記事用",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/147N1ujcceSTex_xE3c__RoX0SCryCbfY"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        336,
+        240
+      ],
+      "id": "cc505ef1-d1ec-4dd8-9587-97655cc67675",
+      "name": "Create file from text",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "oWRWjBBtIQBjGFuD",
+          "name": "Google Drive account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Message a model1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model1": {
+      "main": [
+        [
+          {
+            "node": "Create file from text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4bf6becb8db40298e78ce986ea2eff40eb1c2687a6932e97762883d89b94f900"
+  }
+}
+
+
+【プロンプト】
+役割：精密なデータ抽出・要約専門家
+
+指示：3つのウェブページからスクレイピングされた本文テキストを分析し、その中に含まれる重要な情報を構造化した詳細な要約を作成してください。高品質なブログ記事の作成に役立つ、独自性があり関連性の高い実用的なインサイトの特定に焦点を当ててください。
+
+手順
+
+1. 入力分析：提供された3つのウェブページの統合本文テキストを検証する：{{ $json.combinedBodyText }}
+
+2. トピック識別：統合テキストで議論されている包括的なテーマやトピックを特定する
+
+3. コンテンツ抽出：以下のような重要な詳細を抽出する：
+
+・主要なポイントや論点
+
+・裏付けとなる事実、統計、証拠
+
+・独自のインサイトや視点
+
+
+
+
+
+4. 整理された要約：ブログライターが使いやすい形式で情報を構造化する。
+
+以下のセクションを使用：
+
+・ はじめに/概要
+
+・主要なインサイト/発見事項（リスト形式）
+
+・裏付けとなる証拠/事例
+
+・含意や潜在的な応用
+
+
+
+
+
+5. 明確性と関連性
+
+・要約は簡潔で、不必要な繰り返しを避け、ブログ記事作成に直接関連するものにする
+
+・最終目標：入力テキストからすべての重要な情報を含む、一貫性があり詳細な要約を生成すること。この要約は、その後のブログ記事作成ステップの基盤となるコンテンツとして機能します。
+
+・重点事項：読者に深みと価値を提供するコンテンツの抽出を重視してください。例：独自のデータポイント、専門家の意見、実用的な応用例など。一般的な情報の重複は避け、代わりに統合されたウェブページに固有の具体的な内容を強調してください。
+
+・出力例の構造
+
+
+
+概要：[3つのウェブページで扱われている全体的なトピックの簡潔な説明]
+
+主要なインサイト/発見事項
+
+[インサイト1]
+
+[インサイト2]
+
+[インサイト3]
+
+裏付けとなる証拠/事例
+
+
+
+[ページ1からの事実や事例]
+
+[ページ2からの事実や事例]
+
+[ページ3からの事実や事例]
+
+
+
+含意や応用
+
+[情報がどのように応用できるか、またはその広範囲な含意の分析]
+
+注意: 出力は必ず日本語で作成してください。
+
+【プロンプト】
+# 役割
+あなたは、与えられた「一次情報（ソースデータ）」を基に、読者にとって有益な記事を執筆するプロフェッショナルなSEOライター兼編集者です。
+あなたの使命は、提供された情報の価値を最大化し、読みやすく構造化された記事に変換することです。
+
+# 入力データ（ソース）
+以下のテキストデータに含まれる事実・主張・数値を記事の核として使用してください：
+{{ $json.output[0].content[0].text }}
+※上記変数は必ずn8nのUIで適切な入力値を紐付けてください。
+
+# 汎用執筆ルール（厳守）
+1. **ソース至上主義（重要）**:
+   - 記事のテーマ、主張、結論は、必ず「入力データ」に基づいている必要があります。
+   - 入力データが「専門的な技術ニュース」なら「専門的な解説記事」を、入力データが「初心者向けガイド」なら「入門記事」を書いてください。
+   - **入力データに含まれない一般的な背景知識（「〜とは」や歴史など）で記事を埋め尽くし、肝心のニュース内容が薄まることを固く禁じます。**
+
+2. **情報の解像度**:
+   - 入力データ内にある固有名詞（企業名、ツール名、技術名、人物名）や具体的な数値は、省略せずに必ず記事に盛り込んでください。これらが記事の信頼性を担保します。
+
+3. **トーン＆マナー**:
+   - 読者に語りかけるような、プロフェッショナルかつ熱量のある文体（〜ですね、〜しましょう）。
+   - 導入文は「一般論」ではなく、「今回のニュース/トピックがなぜ読者にとって重要か」から書き始めてください。
+
+# デザイン・構成テンプレート
+以下のフォーマット構造に従って出力してください。見出しの内容は入力データに合わせて可変させてください。
+
+---
+【タイトル】
+（入力データの核心を突き、検索意図を捉えた32文字前後のタイトル）
+
+【導入文】
+（記事の要約と、読者がこの記事を読むメリットを簡潔に）
+
+━━━━━━━━━━━━━━━
+（H2見出し：入力データのメイントピック ※例：新機能の全貌、今回の変更点など）
+━━━━━━━━━━━━━━━
+（本文解説。入力データに基づいて詳細に記述）
+✅ ポイント：
+- （データ内の重要な事実1）
+- （データ内の重要な事実2）
+- （データ内の重要な事実3）
+
+━━━━━━━━━━━━━━━
+（H2見出し：具体的な詳細・仕組み・メリットなど）
+━━━━━━━━━━━━━━━
+（本文解説）
+
+| （比較や詳細項目A） | （比較や詳細項目B） |
+|---|---|
+| （データに基づく内容） | （データに基づく内容） |
+
+━━━━━━━━━━━━━━━
+（H2見出し：実用的なユースケース・応用・影響）
+━━━━━━━━━━━━━━━
+（この情報が実際にどう役立つか、または業界にどう影響するかを解説）
+
+━━━━━━━━━━━━━━━
+まとめ
+━━━━━━━━━━━━━━━
+（記事全体の結論）
+
+━━━━━━━━━━━━━━━
+よくある質問（FAQ）
+━━━━━━━━━━━━━━━
+（入力データの内容に関連して、読者が抱きそうな疑問を3つQ&A化）
+Q1：
+A：
+
+Q2：
+A：
+
+Q3：
+A：
+
+—
+【締めの一文】
+（読者の行動を促すポジティブなメッセージ）
+---
