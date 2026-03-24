@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRevealAnimation } from "@/hooks/useRevealAnimation";
 
 export default function WorrySection() {
@@ -25,27 +26,48 @@ export default function WorrySection() {
           こんなお悩みありませんか？
         </h2>
 
-        {/* モバイル: 縦積み / md以上: absolute配置 */}
+        {/* モバイル: 縦積み */}
         <div className="flex flex-col gap-6 md:hidden">
           {worries.map((worry, index) => (
             <div key={index} className="reveal opacity-0">
               <BubbleCard text={worry} tailPosition={index === 0 ? "left" : index === 1 ? "right" : "center"} />
             </div>
           ))}
+          {/* モバイル: キャラクターを吹き出しの下に配置 */}
+          <div className="reveal opacity-0 flex justify-center mt-4">
+            <Image
+              src="/images/character-tomo.png"
+              alt="トモ（ダックスフンド）が悩んでいる様子"
+              width={120}
+              height={120}
+              className="w-24 h-auto drop-shadow-lg"
+            />
+          </div>
         </div>
 
         {/* md以上: デスクトップ版のabsolute配置 */}
         <div className="hidden md:block relative min-h-[600px]">
-          <div className="reveal opacity-0 absolute top-0 left-[8%] max-w-[440px]">
+          <div className="reveal opacity-0 absolute top-0 left-[8%]">
             <BubbleCard text={worries[0]} tailPosition="left" />
           </div>
 
-          <div className="reveal opacity-0 absolute top-0 right-[8%] max-w-[440px]">
+          <div className="reveal opacity-0 absolute top-0 right-[8%]">
             <BubbleCard text={worries[1]} tailPosition="right" />
           </div>
 
-          <div className="reveal opacity-0 absolute top-[200px] left-1/2 -translate-x-1/2 max-w-[420px]">
+          <div className="reveal opacity-0 absolute top-[220px] left-1/2 -translate-x-1/2">
             <BubbleCard text={worries[2]} tailPosition="center" />
+          </div>
+
+          {/* トモ（ダックスフンド）: 吹き出しの下にキャラ配置 */}
+          <div className="reveal opacity-0 absolute bottom-[10px] left-[35%]">
+            <Image
+              src="/images/character-tomo.png"
+              alt="トモ（ダックスフンド）が悩んでいる様子"
+              width={240}
+              height={240}
+              className="w-44 lg:w-52 h-auto drop-shadow-xl opacity-90 -rotate-6"
+            />
           </div>
 
           {/* 装飾「？」 */}
@@ -63,29 +85,32 @@ export default function WorrySection() {
 
 function BubbleCard({ text, tailPosition }: { text: string; tailPosition: "left" | "right" | "center" }) {
   const tailClasses = {
-    left: "left-[30px]",
-    right: "right-[30px]",
+    left: "left-[36px]",
+    right: "right-[36px]",
     center: "left-1/2 -translate-x-1/2",
   };
 
   return (
     <div
-      className="relative bg-white rounded-[40px] px-6 md:px-8 py-6 sm:py-8 md:py-10 shadow-lg"
-      style={{ border: '3px solid #5a7a9a' }}
+      className="relative bg-white rounded-[50px] px-9 sm:px-10 md:px-12 py-7 sm:py-8 md:py-9"
+      style={{
+        boxShadow: '0 6px 28px rgba(80, 120, 160, 0.14), 0 2px 6px rgba(80, 120, 160, 0.08)',
+      }}
     >
-      <p className="text-sm sm:text-base md:text-lg leading-relaxed text-gray-800 whitespace-pre-line">
+      <p className="text-sm sm:text-base md:text-lg leading-relaxed text-gray-600 whitespace-pre-line text-center">
         {text}
       </p>
+      {/* しっぽ: CSS三角形（吹き出し本体に直接接続） */}
       <div
-        className={`absolute bottom-[-20px] ${tailClasses[tailPosition]} w-0 h-0`}
+        className={`absolute bottom-[-16px] ${tailClasses[tailPosition]} w-0 h-0`}
         style={{
-          borderLeft: '20px solid transparent',
-          borderRight: '20px solid transparent',
-          borderTop: '20px solid white',
-          filter: 'drop-shadow(0 3px 0 #5a7a9a)'
+          borderLeft: '14px solid transparent',
+          borderRight: '14px solid transparent',
+          borderTop: '16px solid white',
         }}
         aria-hidden="true"
       />
     </div>
   );
 }
+

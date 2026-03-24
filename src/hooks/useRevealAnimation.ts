@@ -34,7 +34,7 @@ export function useRevealAnimation(threshold = 0.1) {
     );
     const elements = sectionRef.current?.querySelectorAll(".reveal");
     elements?.forEach((el, i) => {
-      (el as HTMLElement).dataset.delay = String(i * 100);
+      (el as HTMLElement).dataset.delay = String(i * 150);
       observer.observe(el);
     });
     return () => observer.disconnect();

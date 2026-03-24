@@ -68,15 +68,15 @@ export default function LecturerSection() {
                 武藤 匠吾（トモ）
               </h3>
               <p className="text-gray-500 text-sm md:text-base">
-                AIワークフロー解説のトモ｜YouTubeチャンネル登録者1.2万人超｜日本人初 n8n公式アンバサダー
+                AIワークフロー解説のトモ｜YouTubeチャンネル登録者1.2万人超<br className="hidden md:inline" />日本人初 n8n公式アンバサダー
               </p>
             </div>
 
             <p className="text-sm sm:text-base md:text-lg leading-7 sm:leading-8 md:leading-9 mb-6">
-              神奈川県藤沢市を拠点に、AIワークフロー・ AIエージェント領域に特化したDX推進企業「株式会社B-Steep」を運営。世界約55名のみが選出されるn8n公式アンバサダーに日本人として初めて就任。YouTubeチャンネルは開始3ヶ月で1万人登録を突破し、非エンジニアでもAI自動化が組めるようになる動画を発信しています。
+              神奈川県藤沢市を拠点に、AIワークフロー・ AIエージェント領域に特化したDX推進企業「株式会社B-Steep」を運営。<br className="hidden md:inline" />世界約55名のみが選出されるn8n公式アンバサダーに日本人として初めて就任。<br className="hidden md:inline" />YouTubeチャンネルは開始3ヶ月で1万人登録を突破し、非エンジニアでもAI自動化が組めるようになる動画を発信しています。
             </p>
             <p className="text-sm sm:text-base md:text-lg leading-7 sm:leading-8 md:leading-9 mb-8">
-              社名「B-Steep」は、英語の「Baby Step（赤ちゃんのヨチヨチ歩き）」と「Steep（険しい道のり）」をかけ合わせた造語。カナダ留学時代、英語が全く話せず惔しい思いをしていた時に友人から「小さな歩幅でも前に進むことに価値がある」と励まされた原体験から。「厳しい道のりへの挑戦に、小さくても確実な一歩を提供する」——その想いでトモラボを運営しています。
+              社名「B-Steep」は、英語の「Baby Step（赤ちゃんのヨチヨチ歩き）」と「Steep（険しい道のり）」をかけ合わせた造語。<br className="hidden md:inline" />カナダ留学時代、英語が全く話せず惔しい思いをしていた時に友人から「小さな歩幅でも前に進むことに価値がある」と励まされた原体験から。<br className="hidden md:inline" />「厳しい道のりへの挑戦に、小さくても確実な一歩を提供する」——その想いでトモラボを運営しています。
             </p>
 
             {/* SNSリンク */}

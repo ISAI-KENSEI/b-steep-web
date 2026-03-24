@@ -42,7 +42,7 @@ const voices: Voice[] = [
       "リアルイベントでお会いしましたが動画のとおり誠実な方である事と、参加者のレベルアップを構造的に構築するコミュニティ運営を本気で考えて創意工夫しながら実行している事。実際にそのためのプラットフォーム変更も厭わない。",
     aiSystem:
       "Gmail仕訳+下書きワークフロー。ポッドキャストのSNS自動投稿ワークフロー。",
-    avatar: "/images/avatars/kenmaru.png", // TODO: テクテクさん本人のアバターに差し替え
+    avatar: "/images/avatars/kenmaru.png",
   },
   {
     name: "あまねさん",
@@ -70,7 +70,7 @@ const voices: Voice[] = [
       "ＡＩは、時代の波です。必須のスキルかと思います。また、トモさんは、元コンサル出身のため、ロジカルに教えて貰えますので、非常にオススメです。",
     aiSystem:
       "交流会で大量に貰った名刺を写メしてドライブにアップするだけで、メールを作る自動化",
-    avatar: "/images/avatars/kenmaru.png", // TODO: あっきーさん本人のアバターに差し替え
+    avatar: "/images/avatars/kenmaru.png",
   },
   {
     name: "みやひろさん",
@@ -84,7 +84,7 @@ const voices: Voice[] = [
       "作りたいツールの作り方を教えてくれる。",
     aiSystem:
       "Youtube shortsのショート動画自動生成",
-    avatar: "/images/avatars/kenmaru.png", // TODO: みやひろさん本人のアバターに差し替え
+    avatar: "/images/avatars/kenmaru.png",
   },
   {
     name: "リョウさん",
@@ -126,7 +126,7 @@ const voices: Voice[] = [
       "トモさんのワークフロー解説が初心者にもわかりやすい。最新のAI情報等もピックアップして共有してくれるため、AI関連情報の収集がしやすい。コミュニティメンバーの方の意欲も高く、質問もしやすい雰囲気のため、いろんな意見を伺いながら自身のワークフロー構築ができる。",
     aiSystem:
       "AIを活用した情報収集ワークフロー",
-    avatar: "/images/avatars/kenmaru.png", // TODO: ゆうさん本人のアバターに差し替え
+    avatar: "/images/avatars/kenmaru.png",
   },
 ];
 
@@ -247,70 +247,97 @@ function VoiceModal({
   );
 }
 
-/* ─────────────── カード ─────────────── */
+/* ─────────────── グリッドカード（新デザイン） ─────────────── */
 function VoiceCard({
   item,
+  index,
   onOpen,
 }: {
   item: Voice;
+  index: number;
   onOpen: () => void;
 }) {
   return (
-    <div className="reveal opacity-0 bg-gray-50 rounded-xl p-6 md:p-8 flex flex-col justify-between h-full hover:bg-gray-100 transition-colors">
-      {/* 上部：アバター＋名前＋肩書き */}
-      <div>
-        <div className="flex items-center gap-4 mb-5">
-          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-100 flex items-center justify-center shrink-0 overflow-hidden relative">
-            {item.avatar ? (
-              <Image
-                src={item.avatar}
-                alt={item.name}
-                fill
-                className="object-cover"
-              />
-            ) : (
-              <span className="text-lg md:text-xl font-bold text-gray-400">
+    <div
+      className="reveal opacity-0 flex flex-col h-full rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+      style={{ transitionDelay: `${index * 120}ms` }}
+    >
+      {/* 上半分: グラデーション背景 + アバター + 名前 */}
+      <div
+        className="relative flex flex-col items-center justify-center pt-10 pb-7 px-5"
+        style={{
+          background: "linear-gradient(135deg, #a5c0dd 0%, #8ba8c8 40%, #7b9cc2 100%)",
+        }}
+      >
+
+
+        {/* アバター */}
+        <div className="relative w-18 h-18 md:w-22 md:h-22 rounded-full overflow-hidden mb-3 ring-3 ring-white/40 shadow-xl">
+          {item.avatar ? (
+            <Image
+              src={item.avatar}
+              alt={item.name}
+              fill
+              className="object-cover"
+              sizes="96px"
+            />
+          ) : (
+            <div className="w-full h-full bg-white/30 flex items-center justify-center">
+              <span className="text-2xl font-bold text-white">
                 {item.initial}
               </span>
-            )}
-          </div>
-          <div>
-            <p className="text-xs text-gray-400 mb-0.5">{item.role}</p>
-            <h3 className="font-mplus text-lg md:text-xl font-black leading-tight">
-              {item.name}
-            </h3>
-          </div>
+            </div>
+          )}
         </div>
 
-        {/* サマリー */}
-        <p className="text-sm md:text-base leading-7 text-gray-600">
-          {item.summary}
-        </p>
+        {/* 名前・肩書き */}
+        <h3 className="font-mplus text-base md:text-lg font-black text-white text-center leading-tight">
+          {item.name}
+        </h3>
+        <p className="text-xs text-white/70 mt-1">{item.role}</p>
       </div>
 
-      {/* 続きを見る → */}
-      <div className="mt-6 flex justify-end">
-        <button
-          onClick={onOpen}
-          className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors group cursor-pointer"
+      {/* 下半分: 白背景 + テスティモニアル */}
+      <div className="relative flex-1 bg-white flex flex-col justify-between p-4 md:p-5">
+        {/* 装飾の引用符 */}
+        <span
+          className="absolute top-1 left-3 text-5xl md:text-6xl font-serif leading-none select-none pointer-events-none"
+          style={{ color: "#a5c0dd", opacity: 0.2 }}
+          aria-hidden="true"
         >
-          続きを見る
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            className="transition-transform group-hover:translate-x-1"
+          &ldquo;
+        </span>
+
+        {/* テスティモニアルテキスト */}
+        <p className="relative z-10 text-xs md:text-sm leading-6 md:leading-7 text-gray-600 pl-1 line-clamp-5">
+          {item.summary}
+        </p>
+
+        {/* 続きを見る */}
+        <div className="mt-4 flex justify-end">
+          <button
+            onClick={onOpen}
+            className="inline-flex items-center gap-1.5 text-sm font-medium hover:opacity-80 transition-opacity group cursor-pointer"
+            style={{ color: "#0b245b" }}
           >
-            <path
-              d="M3 8H13M13 8L9 4M13 8L9 12"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+            続きを見る
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              className="transition-transform group-hover:translate-x-1"
+            >
+              <path
+                d="M3 8H13M13 8L9 4M13 8L9 12"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -323,8 +350,15 @@ export default function CommunityVoicesSection() {
 
   return (
     <>
-      <section ref={sectionRef} aria-label="コミュニティ参加者の声" className="py-16 sm:py-24 md:py-32 relative overflow-hidden" style={{ backgroundColor: '#a5c0dd' }}>
-        {/* 装飾：雲 */}
+      <section
+        ref={sectionRef}
+        aria-label="コミュニティ参加者の声"
+        className="py-16 sm:py-24 md:py-32 relative overflow-hidden"
+        style={{ backgroundColor: "#a5c0dd" }}
+      >
+
+
+        {/* 装飾：雲・星 */}
         <Image
           src="/images/legacy/sozai/fuwafuwa_w.png"
           alt=""
@@ -350,9 +384,9 @@ export default function CommunityVoicesSection() {
           aria-hidden="true"
         />
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
           {/* セクションタイトル */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-12 md:mb-16">
             <p className="reveal opacity-0 text-white/80 text-sm tracking-[0.3em] mb-4">
               Community Voices
             </p>
@@ -360,16 +394,17 @@ export default function CommunityVoicesSection() {
               コミュニティ参加者の声
             </h2>
             <p className="reveal opacity-0 text-sm md:text-base text-white/90">
-              トモラボに参加している皆さんのリアルな感想をお届けします
+              トモラボに参加している皆さんの<br className="md:hidden" />リアルな感想をお届けします
             </p>
           </div>
 
-          {/* 2列カードグリッド */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+          {/* 2列グリッド */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">
             {voices.map((item, index) => (
               <VoiceCard
                 key={index}
                 item={item}
+                index={index}
                 onOpen={() => setSelectedIndex(index)}
               />
             ))}

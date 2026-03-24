@@ -95,22 +95,7 @@ export default function OfflineEventsGallery() {
         })}
       </div>
 
-      <div className="reveal opacity-0 grid grid-cols-1 md:grid-cols-3 gap-4">
-        {offlineEventStats.map((stat, index) => (
-          <div
-            key={index}
-            className="bg-gray-50 rounded-2xl p-6 md:p-8 text-center hover:bg-gray-100 transition-colors"
-          >
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-900 text-white mb-4">
-              {renderIcon(stat.icon)}
-            </div>
-            <p className="font-mplus text-3xl md:text-4xl font-black mb-1">
-              {stat.title}
-            </p>
-            <p className="text-sm text-gray-500">{stat.description}</p>
-          </div>
-        ))}
-      </div>
+
     </div>
   );
 }

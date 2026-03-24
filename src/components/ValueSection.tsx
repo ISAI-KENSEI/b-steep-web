@@ -6,35 +6,34 @@ import { useRevealAnimation } from "@/hooks/useRevealAnimation";
 const values = [
   {
     number: "1",
-    title: "作りたいAIワークフローを必ず形に",
+    title: <>作りたいAIワークフローを<br className="hidden md:inline" />必ず形に</>,
     description:
       "エラー時はトモ＆メンバーが即サポート。AI構築のロードマップで「何から始めよう？」を解決します。豊富なワークフロー事例から業務改善のアイデアが得られます。",
-    // 写真を入れる場合はコメントアウトを外してパスを指定
-    // image: "/images/value-support.png",
+    image: "/images/value-support-real.jpg",
     imageAlt: "AIワークフロー構築のサポート",
   },
   {
     number: "2",
-    title: "業界随一のAIシステム構築特化コンテンツ",
+    title: <>業界随一のAIシステム構築<br className="hidden md:inline" />特化コンテンツ</>,
     description:
       "ここでしか見られない10時間超の動画教材を完備。コピペで動くJSONコードを多数共有し、毎週のAIニュース＋毎月新コンテンツを継続配信。AIツール専門家へのインタビュー動画も充実しています。",
-    // image: "/images/value-content.png",
+    image: "/images/value-content-real.png",
     imageAlt: "豊富な学習コンテンツ",
   },
   {
     number: "3",
-    title: "各業界の仲間と繋がれるコミュニティ",
+    title: <>各業界の仲間と繋がれる<br className="hidden md:inline" />コミュニティ</>,
     description:
       "作ったAIを投稿すると仲間から改善フィードバックがもらえます。案件相談やコラボが生まれ、副業・キャリアのチャンスにも。メンバー同士での仕事やコラボが生まれた実績もあり、各業界で活躍するAI感度の高いメンバーが多数参加しています。",
-    // image: "/images/value-community.png",
+    image: "/images/value-community-real.jpg",
     imageAlt: "コミュニティのつながり",
   },
   {
     number: "4",
-    title: "ライブイベントで楽しく学べる",
+    title: <>ライブイベントで<br className="hidden md:inline" />楽しく学べる</>,
     description:
       "四半期ごとにオフ会(東京・大阪)を多数開催。オンラインで「トモのAI勉強会」を定期開催し、最新AI知識＆実践スキルをコミュニティと一緒に習得できます。",
-    // image: "/images/value-events.png",
+    image: "/images/value-events-real.png",
     imageAlt: "楽しいライブイベント",
   },
 ];
@@ -70,18 +69,19 @@ export default function ValueSection() {
                 key={index}
                 className={`reveal opacity-0 flex flex-col ${
                   isReversed ? "md:flex-row-reverse" : "md:flex-row"
-                } gap-8 sm:gap-12 md:gap-20 items-center`}
+                } gap-8 sm:gap-12 md:gap-14 items-center`}
               >
                 {/* ───── 画像エリア（50%） ───── */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full md:w-[45%]">
                   {"image" in value && value.image ? (
-                    <div className="relative w-full aspect-square rounded-lg overflow-hidden">
+                    <div className="relative w-full rounded-lg overflow-hidden">
                       <Image
                         src={value.image as string}
                         alt={value.imageAlt}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
+                        width={1200}
+                        height={800}
+                        className="w-full h-auto object-contain rounded-lg"
+                        sizes="(max-width: 768px) 100vw, 45vw"
                       />
                     </div>
                   ) : (
@@ -98,14 +98,14 @@ export default function ValueSection() {
                 </div>
 
                 {/* ───── テキストエリア（50%） ───── */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full md:w-[55%]">
                   {/* 番号 — 大きく薄く */}
-                  <p className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none mb-6 md:mb-8 text-white/20">
+                  <p className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none mb-6 md:mb-8 text-white/35">
                     {value.number}.
                   </p>
 
                   {/* タイトル — やや淡い白 */}
-                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-snug mb-6 md:mb-8 text-white/60">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-snug mb-6 md:mb-8 text-white/85">
                     {value.title}
                   </h3>
 

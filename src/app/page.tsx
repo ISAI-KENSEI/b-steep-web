@@ -15,6 +15,7 @@ import VoicesSection from "@/components/VoicesSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import SectionDivider from "@/components/SectionDivider";
+import { sectionVisibility } from "@/config/sections";
 
 export default function Home() {
   return (
@@ -29,8 +30,12 @@ export default function Home() {
         <ContentSection />
         <SectionDivider />
         <StrengthSection />
-        <SectionDivider />
-        <VoicesSection />
+        {sectionVisibility.voices && (
+          <>
+            <SectionDivider />
+            <VoicesSection />
+          </>
+        )}
         <SectionDivider />
         <CommunityVoicesSection />
         <SectionDivider />

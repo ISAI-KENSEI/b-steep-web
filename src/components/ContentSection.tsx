@@ -85,7 +85,7 @@ export default function ContentSection() {
   const sectionRef = useRevealAnimation();
 
   return (
-    <section ref={sectionRef} aria-label="トモラボのコンテンツ" className="py-16 sm:py-24 md:py-32 relative overflow-hidden" style={{ backgroundColor: '#bfc5d4' }}>
+    <section ref={sectionRef} aria-label="トモラボのコンテンツ" className="py-16 sm:py-24 md:py-32 relative overflow-hidden" style={{ background: 'linear-gradient(160deg, #cdd5e4 0%, #b8c4d8 50%, #c4cede 100%)' }}>
       {/* 装飾：do・雲・星 */}
       <Image
         src="/images/legacy/sozai/do.png"
@@ -119,10 +119,10 @@ export default function ContentSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         <div className="text-center mb-16">
           <h2 className="reveal opacity-0 font-mplus text-xl sm:text-3xl md:text-5xl font-black tracking-wide mb-4 sm:mb-6">
-            トモラボで学べること
+            人気のコンテンツ
           </h2>
           <p className="reveal opacity-0 text-sm sm:text-base md:text-lg text-gray-700">
-            n8nをメインに、Skool上で体系的なカリキュラムを提供しています。
+            トモラボでは、AIワークフロー・エージェントに特化した<br className="hidden sm:inline" />様々な学習コンテンツを用意しています
           </p>
         </div>
 

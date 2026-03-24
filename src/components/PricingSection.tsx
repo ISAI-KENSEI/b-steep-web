@@ -49,7 +49,7 @@ export default function PricingSection() {
       aria-label="料金プラン"
       className="relative py-16 sm:py-24 md:py-36 overflow-hidden"
       style={{
-        background: "linear-gradient(160deg, #060e24 0%, #0b1d4e 40%, #132e6b 70%, #0b1d4e 100%)",
+        background: "linear-gradient(160deg, #1a2d55 0%, #1e3d78 40%, #264d92 70%, #1e3d78 100%)",
       }}
     >
       {/* 背景グロー */}
@@ -66,7 +66,7 @@ export default function PricingSection() {
             あなたに合ったプランを選択
           </h2>
           <p className="text-white/50 text-xs sm:text-sm md:text-base max-w-lg mx-auto">
-            まずは無料版で体験。さらにステップアップしたい方はトモラボ＋へ。
+            まずは無料版で体験。<br className="hidden sm:inline" />さらにステップアップしたい方はトモラボ＋へ。
           </p>
         </div>
 

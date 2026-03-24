@@ -50,7 +50,7 @@ html {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -59,7 +59,7 @@ html {
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out both;
+  animation: fadeInUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 /* アクセシビリティ: モーション低減設定 */
@@ -136,3 +136,41 @@ html {
   width: 32px;
   background: #111827;
 }
+
+/* Community Voices カルーセル */
+.cv-bullet {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cv-bullet:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.cv-bullet-active {
+  width: 28px;
+  background: #fff;
+}
+
+/* カードスケール＋シャドウ：中央カードを大きく */
+.community-voices-swiper .swiper-slide {
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity: 0.65;
+}
+
+.community-voices-swiper .swiper-slide-active {
+  opacity: 1;
+}
+
+.community-voices-swiper .swiper-slide-active .voice-carousel-card {
+  box-shadow: 0 20px 60px rgba(11, 36, 91, 0.2),
+    0 8px 24px rgba(11, 36, 91, 0.1);
+}
+
+
+

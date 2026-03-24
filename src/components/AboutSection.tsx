@@ -46,13 +46,13 @@ export default function AboutSection() {
         {/* 右：テキスト */}
         <div className="reveal opacity-0 w-full pt-0 md:pt-8">
           <h3 className="text-base sm:text-xl md:text-2xl lg:text-3xl font-normal text-white mb-6 sm:mb-8 md:mb-10 tracking-wide leading-relaxed">
-            教科書の学校ではなく、みんなで手を動かす「実験室（ラボ）」
+            教科書の学校ではなく、<br className="hidden md:inline" />みんなで手を動かす「実験室（ラボ）」
           </h3>
           <p className="text-sm sm:text-base md:text-lg leading-[1.8] sm:leading-[2] md:leading-[2.2] mb-6 sm:mb-8">
-            通称、「トモラボ！」と呼ばれる本コミュニティは、AIエージェント・ワークフロー構築に特化した日本有数のコミュニティです！日本人初のn8n公式アンバサダー・武藤匠吾が運営し、「勉強」で終わらせず、作りたいものを「形」にする。それがトモラボの一番のこだわりです。
+            通称、「トモラボ！」と呼ばれる本コミュニティは、<br className="hidden md:inline" />AIエージェント・ワークフロー構築に特化した日本有数のコミュニティです！<br className="hidden md:inline" />日本人初のn8n公式アンバサダー・武藤匠吾が運営し、<br className="hidden md:inline" />「勉強」で終わらせず、作りたいものを「形」にする。それがトモラボの一番のこだわりです。
           </p>
           <p className="text-sm sm:text-base md:text-lg leading-[1.8] sm:leading-[2] md:leading-[2.2]">
-            n8nをメインに、Make・Dify・bolt・cursor等の最新ツールを網羅。エラーが出ても大丈夫——質問は無制限で、解決まで付き合います。難しいコードは共有されたJSONをコピペでOK。まずは「動いた！すごい！」という感動を一緒に味わいましょう。
+            n8nをメインに、Make・Dify・bolt・cursor等の最新ツールを網羅。<br className="hidden md:inline" />エラーが出ても大丈夫——質問は無制限で、解決まで付き合います。<br className="hidden md:inline" />難しいコードは共有されたJSONをコピペでOK。<br className="hidden md:inline" />まずは「動いた！すごい！」という感動を一緒に味わいましょう。
           </p>
         </div>
       </div>

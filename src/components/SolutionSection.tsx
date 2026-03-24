@@ -34,7 +34,7 @@ export default function SolutionSection() {
             style={{ borderColor: '#e87730' }}
           >
             <p className="text-sm sm:text-lg md:text-xl font-bold text-center leading-relaxed">
-              皆様の作りたい<span style={{ color: '#e87730' }}>AI エージェント</span>＆<span style={{ color: '#e87730' }}>AI ワークフロー</span>を<br />
+              皆様の作りたい<span style={{ color: '#e87730' }}>AI エージェント</span>＆<span style={{ color: '#e87730' }}>AI ワークフロー</span>を<br className="hidden sm:inline" />
               <span className="text-xl md:text-2xl font-black" style={{ color: '#e87730' }}>必ず形にします</span>
             </p>
           </div>
